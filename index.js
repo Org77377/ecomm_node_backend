@@ -1,6 +1,7 @@
 // importing all required packages and libraries 
-const express = require("express")
-const mongoose = require("mongoose")
+import express from "express";
+import mongoose from "mongoose";
+import Product from "./models/products.js";
 
 const app = express();
 const port = 8080;
@@ -16,20 +17,6 @@ main().then(()=>{
     console.log(err);
 })
 
-// testing the database and insertion
-// const docSchema = mongoose.Schema(
-//     {
-//         name: String,
-//         price: Number,
-//         desc: String,
-//         inStock: Boolean
-//     }
-// );
-
-// const Product = mongoose.model("Product", docSchema);
-
-// Product.insertOne(
-//     { name: "iPhone 11 128GB", price: 24000, desc: "iPhone 11 128gb black color", inStock: true}
-// ).then(()=>{
-//     console.log("item added successfully");
-// })
+app.listen(port, ()=>{
+    console.log("server is listening...");
+})
