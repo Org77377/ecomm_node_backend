@@ -2,6 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./routes/product.js";
+import cartrouter from "./routes/cart.js";
 
 const app = express();
 const port = 3000;
@@ -23,3 +24,4 @@ app.listen(port, ()=>{
 })
 
 app.use("/product", router);
+app.use("/cart", cartrouter);

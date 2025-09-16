@@ -10,5 +10,4 @@ router
 .put(updateProduct)
 
 router.post("/", addProduct);
-
 export default router;
