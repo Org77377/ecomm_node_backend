@@ -3,7 +3,7 @@ import Product from "../models/products.js";
 // get all the products 
 export const getProducts = async (req, res)=>{
     const data = await Product.find({});
-    return res.json(data);
+    res.render("home", {products : data})
 }
 
 // find product using a id 
