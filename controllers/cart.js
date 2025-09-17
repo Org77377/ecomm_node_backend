@@ -2,14 +2,14 @@ import cart_Item from "../models/cartItem.js";
 import Product from "../models/products.js";
 
 export const getCart = async (req, res) => {
-  const allCart = await cart_Item.find({});
+  const allCart = await cart_Item.find({addedby: req.user._id});
   const cart = allCart.map((item) => {
     return `${item.name} ==> ${item.Qty}`;
   });
   res.render("cart", {cart: allCart});
 };
 export const addToCart = async (req, res) => {
-  const name = req.params.name;
+  const name = req.body.cartItem;
   console.log(name);
   const product = await Product.findOne({ name });
 
@@ -28,7 +28,9 @@ export const addToCart = async (req, res) => {
       name: product.name,
       price: product.price,
       Qty: 1,
+      addedby : req.user._id,
     });
+    console.log(req.user)
 
     await cart.save();
     res.status(201).send("Product added to cart");

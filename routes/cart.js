@@ -4,11 +4,11 @@ import { addToCart, updateQty, deleteItem, getCart } from "../controllers/cart.j
 const cartrouter = express.Router();
 
 cartrouter
-.route("/:name")
+.route("/:name", )
 .post(addToCart)
 .put(updateQty)
 .delete(deleteItem)
 
-cartrouter.get("/",getCart);
+cartrouter.get("/", getCart);
 
 export default cartrouter;

@@ -1,5 +1,6 @@
 import { User } from "../models/users.js";
 import { nanoid } from "nanoid";
+import { setUser } from "../service/auth.js";
 
 export const userSign = async (req, res)=>{
     const {name, email, password} = req.body;
@@ -17,6 +18,10 @@ export const userLogin = async (req, res)=>{
     if(!login){
         res.status(400).send("invalid login details");
     }
-    const sessId = nanoid(5);
+    // const sessId = nanoid();
+    // setUser(sessId, login);
+    const token = setUser(login);
+    // res.cookie("sid",sessId);
+    res.cookie("sid",token);
     return res.redirect("/");
 }

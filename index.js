@@ -6,6 +6,8 @@ import cartrouter from "./routes/cart.js";
 import path from "path";
 import staticrouter from "./routes/staticRoutes.js";
 import user from "./routes/users.js";
+import { restrictUser } from "./middlewares/auth.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
@@ -14,6 +16,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
 // checking mongodb connection 
 async function main(){
     await mongoose.connect("mongodb://localhost:27017/shopy");
@@ -30,6 +33,6 @@ app.listen(port, ()=>{
 })
 
 app.use("/product", router);
-app.use("/cart", cartrouter);
+app.use("/cart", restrictUser, cartrouter);
 app.use("/", staticrouter);
 app.use("/users", user)

@@ -9,6 +9,10 @@ const cart_sch = mongoose.Schema(
         stock: Number,
         imageUrl: String,
         Qty: Number,
+        addedby: {
+            type : mongoose.Schema.Types.ObjectId,
+            by : "user",
+        }
     }
 )
 
