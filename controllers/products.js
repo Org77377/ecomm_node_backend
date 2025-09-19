@@ -13,6 +13,7 @@ export const getbyid = async (req, res)=> {
     res.json(find);
 }
 
+// update product using the product name
 export const updateProduct = async(req,res) => {
     const id = req.params.id;
     const {name, description, price, category, stock} = req.body;
@@ -30,6 +31,7 @@ export const updateProduct = async(req,res) => {
     })
 }
 
+// add new product to the product list 
 export const addProduct = async(req,res)=>{
     const {name, description, price, category, stock, imageUrl} = req.body;
     const updated = await Product.insertOne({   

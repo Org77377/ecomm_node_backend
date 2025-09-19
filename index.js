@@ -6,8 +6,10 @@ import cartrouter from "./routes/cart.js";
 import path from "path";
 import staticrouter from "./routes/staticRoutes.js";
 import user from "./routes/users.js";
-import { restrictUser } from "./middlewares/auth.js";
 import cookieParser from "cookie-parser";
+import { loggedInOnly } from "./middleware/auth.js";
+import cart_Item from "./models/cartItem.js";
+
 
 const app = express();
 const port = 3000;
@@ -33,6 +35,6 @@ app.listen(port, ()=>{
 })
 
 app.use("/product", router);
-app.use("/cart", restrictUser, cartrouter);
+app.use("/cart", cartrouter);
 app.use("/", staticrouter);
 app.use("/users", user)

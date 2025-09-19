@@ -13,6 +13,10 @@ staticrouter.get("/login", (req, res)=>{
     res.render("login");
 });
 
+staticrouter.get("/delete", (req, res)=>{
+    res.render("delete");
+})
+
 staticrouter.get("/addtocart",(req,res)=>{
     res.render("addtocart");
 })

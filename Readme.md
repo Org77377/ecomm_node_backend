@@ -1,0 +1,1 @@
+<h1>ShoppyGlobe - backend</h1>

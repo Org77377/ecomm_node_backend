@@ -4,13 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart Items</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap:20px;
+        }
+        .items{
+            width: 40vw;
+            height: auto;
+            padding: 10px;
+            line-height: 40px;
+            border:2px solid black;
+            border-radius: 10px;
+            list-style: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>
-        Cart Items
+    Cart Items
+    <br/> <br/>
+    <div class="main">
         <% cart.forEach(c=>{%>
+            <div class="items">
             <li><%=c.name%> -- Price <%=c.price%> -- Qty <%= c.Qty%></li>
+            </div>
         <%})%>
-    </h1>
+    </div>
 </body>
 </html>

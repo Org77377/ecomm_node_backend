@@ -1,7 +1,8 @@
-import { User } from "../models/users.js";
 import { nanoid } from "nanoid";
+import { User } from "../models/users.js";
 import { setUser } from "../service/auth.js";
 
+// create new user / user sign up 
 export const userSign = async (req, res)=>{
     const {name, email, password} = req.body;
     await User.create({
@@ -12,16 +13,15 @@ export const userSign = async (req, res)=>{
     return res.render("login");
 }
 
+// handle user sign in
 export const userLogin = async (req, res)=>{
     const {email, password} = req.body;
-    const login = await User.findOne({email, password});
-    if(!login){
-        res.status(400).send("invalid login details");
+    const users = await User.findOne({email, password});
+    if(!users){
+        res.send("invalid login details");
     }
-    // const sessId = nanoid();
-    // setUser(sessId, login);
-    const token = setUser(login);
-    // res.cookie("sid",sessId);
-    res.cookie("sid",token);
+    // const ssid = nanoid(8);
+    const token = setUser(users); //ssid
+    res.cookie("uid", token, {httpOnly: true});
     return res.redirect("/");
 }

@@ -1,20 +1,24 @@
-// const sessIdToUserMap = new Map();
+const loginuserMap = new Map();
 import jwt from "jsonwebtoken";
-const scrt = "$server$"
+const secret = "@secret@";
 
-function setUser(user){ //(removed sid)
-    // sessIdToUserMap.set(sid, user)
-    console.log(user);
-    return jwt.sign({
-        _id: user._id,
-        email: user.email,
-    }, scrt);
+export function setUser(user){ //id
+    return jwt.sign(
+        {
+            _id: user._id,
+            email: user.email,
+        } 
+            ,secret);
+    // loginuserMap.set(id, user);
 }
 
-function getUser(token){ //(replaced sid with token)
-    // return sessIdToUserMap.get(sid)
+export async function getUser(token){ //id
     if(!token) return null;
-    jwt.verify(token, scrt)
+    try{
+     return jwt.verify(token, secret);
+     }
+     catch(err){
+        return null;
+     }
+    // return loginuserMap.get(token);
 }
-
-export {getUser,setUser};
