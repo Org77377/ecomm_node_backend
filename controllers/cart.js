@@ -1,6 +1,7 @@
 import cart_Item from "../models/cartItem.js";
 import Product from "../models/products.js";
 
+// function to get items from cart for particular user 
 export const getCart = async (req, res) => {
   if(!req.user){
     return res.redirect('/login');
@@ -9,6 +10,7 @@ export const getCart = async (req, res) => {
   return res.render("cart", { cart: allCart,});
 };
 
+// function to add items in cart 
 export const addToCart = async (req, res) => {
   const name = req.body.cartItem;
   if(!req.user){
@@ -39,6 +41,7 @@ export const addToCart = async (req, res) => {
   }
 };
 
+// funcion to update items in cart (optional test feature) 
 export const updateQty = async (req, res) => {
   const name = req.params.name;
   const checkExist = await cart_Item.findOne({ name: name });
@@ -52,12 +55,19 @@ export const updateQty = async (req, res) => {
   await checkExist.save();
 };
 
+// function to delete item from cart
 export const deleteItem = async (req, res) => {
-  const {name} = req.params;
-  const checkExist = await cart_Item.findOne({ name: name });
+  const itemname = req.body.itemname;
+  const checkExist = await cart_Item.findOne({ name: itemname});
   if (!checkExist) {
-    res.status(404).send(`${name} is not present in the cart`);
+    res.status(404).send(`${itemname} is not present in the cart`);
   }
-  await cart_Item.deleteOne({ name: name });
-  res.send("Item removed from cart");
+  if(checkExist.Qty > 1){
+    checkExist.Qty -= 1;
+    res.send("Item quantity decreased by 1");
+    await checkExist.save();
+  }else{
+    await cart_Item.deleteOne({ name: itemname });
+    res.send("Item removed from cart"); 
+  }
 };
